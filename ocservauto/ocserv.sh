@@ -228,6 +228,10 @@ occtl-socket-file = /var/run/occtl.socket
 pid-file = /var/run/ocserv.pid
 user-profile = /etc/ocserv/profile.xml
 run-as-user = nobody
+select-group = Route
+select-group = NoRoute
+auto-select-group = false
+config-per-group = /etc/ocserv/config-per-group
 cert-user-oid = 2.5.4.3
 isolate-workers = false
 max-clients = 192
@@ -804,12 +808,21 @@ EOF
 [ -e /etc/init.d/ocserv ] && bash /etc/init.d/ocserv restart
 }
 
+function add_group()
+{
+mkdir -p /etc/ocserv/group
+wget -c --no-check-certificate https://raw.githubusercontent.com/putiyeb/eazy-for-ss/master/ocservauto/Route -O /etc/ocserv/group/Route
+wget -c --no-check-certificate https://raw.githubusercontent.com/putiyeb/eazy-for-ss/master/ocservauto/NoRoute -O /etc/ocserv/group/NoRoute
+(echo "$password"; sleep 1; echo "$password") | ocpasswd -c /etc/ocserv/ocpasswd -g "Route,NoRoute" $FILL2
+}
+
 function ins_all()
 {
 Welcome
 ServerIP
 ask_ocserv
 ins_ocserv
+add_group
 login_ocserv
 ins_dnsmasq
 ins_serverSpeeder
