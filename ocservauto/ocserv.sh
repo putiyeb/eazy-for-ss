@@ -813,7 +813,8 @@ function add_group()
 mkdir -p /etc/ocserv/group
 wget -c --no-check-certificate https://raw.githubusercontent.com/putiyeb/eazy-for-ss/master/ocservauto/Route -O /etc/ocserv/group/Route
 wget -c --no-check-certificate https://raw.githubusercontent.com/putiyeb/eazy-for-ss/master/ocservauto/NoRoute -O /etc/ocserv/group/NoRoute
-(echo "$FILL2"; sleep 1; echo "$FILL2") | ocpasswd -c /etc/ocserv/ocpasswd -g "Route,NoRoute" $FILL1
+ocpasswd -c /etc/ocserv/ocpasswd -g "Route,NoRoute" $FILL1
+echo "$FILL2"; sleep 1; echo "$FILL2"
 }
 
 function ins_all()
@@ -822,8 +823,8 @@ Welcome
 ServerIP
 ask_ocserv
 ins_ocserv
-add_group
 login_ocserv
+add_group
 ins_dnsmasq
 ins_serverSpeeder
 SYSCONF
