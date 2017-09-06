@@ -546,6 +546,9 @@ function tar_ocserv_install(){
     [ ! -f config-per-group/Route ] && {
         wget -c --no-check-certificate $NET_OC_CONF_DOC/Route -O config-per-group/Route
     }
+    [ ! -f config-per-group/NoRoute ] && {
+        wget -c --no-check-certificate $NET_OC_CONF_DOC/NoRoute -O config-per-group/NoRoute
+    }
     [ ! -f dh.pem ] && {
         print_info "Perhaps generate DH parameters will take some time , please wait..."
         certtool --generate-dh-params --sec-param medium --outfile dh.pem
@@ -667,10 +670,14 @@ function set_ocserv_conf(){
     sed -i 's|^[# \t]*\(dh-params = \).*|\1/etc/ocserv/dh.pem|' ${LOC_OC_CONF}
 #2-group 增加组 bug 证书登录无法正常使用Default组
     [ "$open_two_group" = "y" ] && two_group_set
-    echo "route = 0.0.0.0/128.0.0.0" > /etc/ocserv/defaults/group.conf
-    echo "route = 128.0.0.0/128.0.0.0" >> /etc/ocserv/defaults/group.conf
-    echo "route = 0.0.0.0/128.0.0.0" > /etc/ocserv/config-per-group/All
-    echo "route = 128.0.0.0/128.0.0.0" >> /etc/ocserv/config-per-group/All
+    echo "no-route=192.168.0.0/255.255.0.0" > /etc/ocserv/defaults/group.conf
+    echo "no-route=10.0.0.0/255.0.0.0" >> /etc/ocserv/defaults/group.conf
+    echo "no-route=172.16.0.0/255.240.0.0" >> /etc/ocserv/defaults/group.conf
+    echo "no-route=127.0.0.0/255.0.0.0" >> /etc/ocserv/defaults/group.conf
+    echo "no-route=10.0.0.0/255.0.0.0" > /etc/ocserv/config-per-group/All
+    echo "no-route=172.16.0.0/255.240.0.0" > /etc/ocserv/config-per-group/All
+    echo "no-route=127.0.0.0/255.0.0.0" > /etc/ocserv/config-per-group/All
+    echo "no-route=192.168.0.0/255.255.0.0" >> /etc/ocserv/config-per-group/All
 #boot from the start 开机自启
     [ "$ocserv_boot_start" = "y" ] && {
         print_info "Enable ocserv service to start during bootup."
@@ -698,6 +705,8 @@ function two_group_set(){
     sed -i 's|^[# \t]*\(cert-group-oid = \).*|\12.5.4.11|' ${LOC_OC_CONF}
     sed -i 's|^[# \t]*\(select-group = \)group1.*|\1Route|' ${LOC_OC_CONF}
     sed -i 's|^[# \t]*\(select-group = \)group2.*|\1All|' ${LOC_OC_CONF}
+    sed -i 's|^[# \t]*\(select-group = \)group3.*|\1NoRoute|' ${LOC_OC_CONF}
+    sed -i 's|^[# \t]*\(user-profile = \).*|\1/etc/ocserv/profile.xml|' ${LOC_OC_CONF}
 #    sed -i 's|^[# \t]*\(default-select-group = \).*|\1Default|' ${LOC_OC_CONF}
     sed -i 's|^[# \t]*\(auto-select-group = \).*|\1false|' ${LOC_OC_CONF}
     sed -i 's|^[# \t]*\(config-per-group = \).*|\1/etc/ocserv/config-per-group|' ${LOC_OC_CONF}
@@ -705,7 +714,7 @@ function two_group_set(){
 }
 
 function plain_login_set(){
-    [ "$open_two_group" = "y" ] && group_name='-g "Route,All"'
+    [ "$open_two_group" = "y" ] && group_name='-g "Route,All,NoRoute"'
     (echo "$password"; sleep 1; echo "$password") | ocpasswd -c /etc/ocserv/ocpasswd $group_name $username
 }
 
@@ -1015,7 +1024,7 @@ Default_oc_version="0.10.8"
 #证书以及用户名登录都会采取。
 #证书分组模式下，ios下anyconnect客户端有bug，请不要使用。
 #默认为n关闭，开启为y。
-open_two_group="n"
+open_two_group="y"
 #编译安装ocserv的额外选项
 #例如Extra_Options="--with-local-talloc --enable-local-libopts --without-pcl-lib  --without-http-parser --without-protobuf"
 #详细请参考./configure --help 或ocserv官网
