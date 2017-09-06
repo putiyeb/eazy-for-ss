@@ -1007,7 +1007,7 @@ echo "==========================================================================
 
 #ocserv配置文件所在的网络文件夹位置
 #如果fork的话，请修改为自己的网络地址
-NET_OC_CONF_DOC="https://raw.githubusercontent.com/fanyueciyuan/eazy-for-ss/master/ocservauto"
+NET_OC_CONF_DOC="https://raw.githubusercontent.com/putiyeb/eazy-for-ss/master/ocservauto"
 #推荐的默认版本
 Default_oc_version="0.10.8"
 #开启分组模式，每位用户都会分配到All组和Route组。
