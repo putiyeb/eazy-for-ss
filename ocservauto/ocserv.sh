@@ -813,7 +813,7 @@ function add_group()
 mkdir -p /etc/ocserv/group
 wget -c --no-check-certificate https://raw.githubusercontent.com/putiyeb/eazy-for-ss/master/ocservauto/Route -O /etc/ocserv/group/Route
 wget -c --no-check-certificate https://raw.githubusercontent.com/putiyeb/eazy-for-ss/master/ocservauto/NoRoute -O /etc/ocserv/group/NoRoute
-(echo "$password"; sleep 1; echo "$password") | ocpasswd -c /etc/ocserv/ocpasswd -g "Route,NoRoute" $FILL2
+(echo "$FILL2"; sleep 1; echo "$FILL2") | ocpasswd -c /etc/ocserv/ocpasswd -g "Route,NoRoute" $FILL1
 }
 
 function ins_all()
