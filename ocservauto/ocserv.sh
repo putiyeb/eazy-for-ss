@@ -228,6 +228,7 @@ occtl-socket-file = /var/run/occtl.socket
 pid-file = /var/run/ocserv.pid
 user-profile = /etc/ocserv/profile.xml
 run-as-user = nobody
+select-group = All
 select-group = Route
 select-group = NoRoute
 auto-select-group = false
