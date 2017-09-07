@@ -829,7 +829,6 @@ ins_ocserv
 login_ocserv
 add_group
 ins_dnsmasq
-ins_serverSpeeder
 SYSCONF
 ins_Finish
 }
@@ -840,7 +839,6 @@ grep '^iptables' /etc/rc.local >/tmp/iptables.tmp
 [ -f /tmp/iptables.tmp ] && bash /tmp/iptables.tmp
 [ -e /etc/init.d/dnsmasq ] && bash /etc/init.d/dnsmasq restart
 [ -e /etc/init.d/ocserv ] && bash /etc/init.d/ocserv restart
-[ -e /etc/init.d/serverSpeeder ] && bash /etc/init.d/serverSpeeder restart
 rm -rf /tmp/*.tmp
 }
 
