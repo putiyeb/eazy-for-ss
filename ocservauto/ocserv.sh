@@ -811,12 +811,15 @@ EOF
 function add_group()
 {
 mkdir -p /etc/ocserv/group
+wget -c --no-check-certificate https://raw.githubusercontent.com/putiyeb/eazy-for-ss/master/ocservauto/All -O /etc/ocserv/group/All
 wget -c --no-check-certificate https://raw.githubusercontent.com/putiyeb/eazy-for-ss/master/ocservauto/Route -O /etc/ocserv/group/Route
 wget -c --no-check-certificate https://raw.githubusercontent.com/putiyeb/eazy-for-ss/master/ocservauto/NoRoute -O /etc/ocserv/group/NoRoute
+echo "no-route = $PublicIP/255.255.255.255" >> /etc/ocserv/group/All
+echo "no-route = $PublicIP/255.255.255.255" >> /etc/ocserv/group/Route
 (
 echo "$FILLIT2"
 sleep 1
-echo "$FILLIT2")|ocpasswd -c /etc/ocserv/ocpasswd -g "Route,NoRoute" $FILLIT1
+echo "$FILLIT2")|ocpasswd -c /etc/ocserv/ocpasswd -g "All,Route,NoRoute" $FILLIT1
 bash /etc/init.d/ocserv restart
 }
 
