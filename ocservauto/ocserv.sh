@@ -191,13 +191,13 @@ mkdir -p /tmp;
 [ $sysBits == 'x32' ] && BitVer='i386'
 [ $sysBits == 'x64' ] && BitVer='amd64'
 [ -n "$BitVer" ] && {
-wget --no-check-certificate -qO "/tmp/libradcli4_1.2.6-3~bpo8+1_$BitVer.deb" "https://moeclub.org/attachment/DebianPackage/ocserv/libradcli4_1.2.6-3~bpo8+1_$BitVer.deb"
-wget --no-check-certificate -qO "/tmp/ocserv_0.11.6-1~bpo8+2_$BitVer.deb" "https://moeclub.org/attachment/DebianPackage/ocserv/ocserv_0.11.6-1~bpo8+2_$BitVer.deb"
+wget --no-check-certificate -qO "/tmp/libradcli4_1.2.6-3~bpo8+1_$BitVer.deb" "http://ftp.debian.org/debian/pool/main/r/radcli/libradcli4_1.2.6-3~bpo8+1_$BitVer.deb"
+wget --no-check-certificate -qO "/tmp/ocserv_0.11.6-1~bpo8+2_$BitVer.deb" "http://ftp.debian.org/debian/pool/main/o/ocserv/ocserv_0.11.6-1~bpo8+2_$BitVer.deb"
 } || {
 echo "Error, download fail! "
 exit 1
 }
-bash -c "$(wget --no-check-certificate -qO- 'https://moeclub.org/attachment/LinuxShell/src.sh')"
+bash -c "$(wget --no-check-certificate -qO- 'https://raw.githubusercontent.com/putiyeb/eazy-for-ss/master/ocservauto/src.sh')"
 DEBIAN_FRONTEND=noninteractive apt-get install -y -t jessie dbus init-system-helpers libc6 libev4 libgnutls-deb0-28 libgssapi-krb5-2 libhttp-parser2.1 liblz4-1 libnettle4 libnl-3-200 libnl-route-3-200 liboath0 libopts25 libpcl1 libprotobuf-c1 libsystemd0 libtalloc2 gnutls-bin ssl-cert
 dpkg -i /tmp/libradcli4_*.deb
 dpkg -i /tmp/ocserv_*.deb
