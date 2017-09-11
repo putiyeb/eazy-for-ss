@@ -127,13 +127,13 @@ FILL1='UserName'
 FILL2='PassWord'
 }
 [ -n "$FILL1" -a -n "$FILL2" ] && {
-FILLIT1='MoeClub.org'
+FILLIT1='shui.azurewebsites.net'
 echo -ne "\n\e[35mPlease input AnyConnet $FILL1\e[33m[Default:\e[32mshui.azurewebsites.net\e[33m]\e[0m: "
 read tmpFILL1
 if [[ -n "$tmpFILL1" ]]; then
     FILLIT1=$tmpFILL1
 fi
-FILLIT2='Vicer'
+FILLIT2='YHIblog'
 echo -ne "\n\e[35mPlease input AnyConnet $FILL2\e[33m[Default:\e[32mYHIblog\e[33m]\e[0m: "
 read tmpFILL2
 if [[ -n "$tmpFILL2" ]]; then
