@@ -13,7 +13,7 @@ echo "            |         OpenConnect(ocserv) & serverSpeeder        |";
 echo "            |                                                    |";
 echo "            |                                         for Debian |";
 echo "            |----------------------------------------------------|";
-echo "            |                           -- By MoeClub.org(Vicer) |";
+echo "            |                  -- By shui.azurewebsites.net(YHI) |";
 echo "            ======================================================";
 echo;
 }
@@ -128,13 +128,13 @@ FILL2='PassWord'
 }
 [ -n "$FILL1" -a -n "$FILL2" ] && {
 FILLIT1='MoeClub.org'
-echo -ne "\n\e[35mPlease input AnyConnet $FILL1\e[33m[Default:\e[32mMoeClub.org\e[33m]\e[0m: "
+echo -ne "\n\e[35mPlease input AnyConnet $FILL1\e[33m[Default:\e[32mshui.azurewebsites.net\e[33m]\e[0m: "
 read tmpFILL1
 if [[ -n "$tmpFILL1" ]]; then
     FILLIT1=$tmpFILL1
 fi
 FILLIT2='Vicer'
-echo -ne "\n\e[35mPlease input AnyConnet $FILL2\e[33m[Default:\e[32mVicer\e[33m]\e[0m: "
+echo -ne "\n\e[35mPlease input AnyConnet $FILL2\e[33m[Default:\e[32mYHIblog\e[33m]\e[0m: "
 read tmpFILL2
 if [[ -n "$tmpFILL2" ]]; then
     FILLIT2=$tmpFILL2
@@ -309,7 +309,7 @@ certtool --generate-dh-params --outfile /etc/ocserv/dh.pem
 
 cat >/etc/ocserv/template/server.tmp<<EOF
 cn = "$MyDomain" 
-organization = "MoeClub.org" 
+organization = "shui.azurewebsites.net" 
 serial = 2
 expiration_days = 1825
 signing_key 
@@ -334,7 +334,7 @@ EOF
 openssl genrsa -out /etc/ocserv/template/user.key.pem 2048
 certtool --generate-certificate --hash SHA256 --load-privkey /etc/ocserv/template/user.key.pem --load-ca-certificate /etc/ocserv/ca.cert.pem --load-ca-privkey /etc/ocserv/template/ca.key.pem --template /etc/ocserv/template/user.tmp --outfile /etc/ocserv/template/user.cert.pem
 cat /etc/ocserv/ca.cert.pem >>/etc/ocserv/template/user.cert.pem
-openssl pkcs12 -export -inkey /etc/ocserv/template/user.key.pem -in /etc/ocserv/template/user.cert.pem -name "Vicer" -certfile /etc/ocserv/ca.cert.pem -caname "$FILLIT1" -out /etc/ocserv/AnyConnect.p12 -passout pass:
+openssl pkcs12 -export -inkey /etc/ocserv/template/user.key.pem -in /etc/ocserv/template/user.cert.pem -name "YHIblog" -certfile /etc/ocserv/ca.cert.pem -caname "$FILLIT1" -out /etc/ocserv/AnyConnect.p12 -passout pass:
 [ -f /etc/ocserv/ocserv.conf ] && sed -i 's/^auth =/#auth =/g;s/^#auth = "certificate".*/auth = "certificate"/g' /etc/ocserv/ocserv.conf
 }
 [ $MyType == 'password' ] && {
