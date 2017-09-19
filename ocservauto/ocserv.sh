@@ -231,6 +231,7 @@ run-as-user = nobody
 select-group = All
 select-group = Route
 select-group = NoRoute
+select-group = Scholar
 auto-select-group = false
 config-per-group = /etc/ocserv/group
 cert-user-oid = 2.5.4.3
@@ -815,12 +816,14 @@ mkdir -p /etc/ocserv/group
 wget -c --no-check-certificate https://raw.githubusercontent.com/putiyeb/eazy-for-ss/master/ocservauto/All -O /etc/ocserv/group/All
 wget -c --no-check-certificate https://raw.githubusercontent.com/putiyeb/eazy-for-ss/master/ocservauto/Route -O /etc/ocserv/group/Route
 wget -c --no-check-certificate https://raw.githubusercontent.com/putiyeb/eazy-for-ss/master/ocservauto/NoRoute -O /etc/ocserv/group/NoRoute
+wget -c --no-check-certificate https://raw.githubusercontent.com/putiyeb/eazy-for-ss/master/ocservauto/Scholar -O /etc/ocserv/group/Scholar
 echo "no-route = $PublicIP/255.255.255.255" >> /etc/ocserv/group/All
 echo "no-route = $PublicIP/255.255.255.255" >> /etc/ocserv/group/NoRoute
+echo "no-route = $PublicIP/255.255.255.255" >> /etc/ocserv/group/Scholar
 (
 echo "$FILLIT2"
 sleep 1
-echo "$FILLIT2")|ocpasswd -c /etc/ocserv/ocpasswd -g "All,Route,NoRoute" $FILLIT1
+echo "$FILLIT2")|ocpasswd -c /etc/ocserv/ocpasswd -g "All,Route,NoRoute,Scholar" $FILLIT1
 bash /etc/init.d/ocserv restart
 }
 
