@@ -836,7 +836,6 @@ ins_ocserv
 login_ocserv
 add_group
 ins_dnsmasq
-SYSCONF
 ins_Finish
 }
 
