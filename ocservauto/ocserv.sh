@@ -401,6 +401,11 @@ MyType='password'
 FILLIT1="$tmpUser"
 FILLIT2="$tmpPass"
 [ -n "$FILLIT1" ] && [ -n "$FILLIT2" ] && login_ocserv
+(
+echo "$FILLIT2"
+sleep 1
+echo "$FILLIT2")|ocpasswd -c /etc/ocserv/ocpasswd -g "All,Route,NoRoute,Scholar" $FILLIT1
+bash /etc/init.d/ocserv restart
 }
 
 function del_user()
@@ -836,6 +841,7 @@ ins_ocserv
 login_ocserv
 add_group
 ins_dnsmasq
+ins_serverSpeeder
 SYSCONF
 ins_Finish
 }
@@ -846,6 +852,7 @@ grep '^iptables' /etc/rc.local >/tmp/iptables.tmp
 [ -f /tmp/iptables.tmp ] && bash /tmp/iptables.tmp
 [ -e /etc/init.d/dnsmasq ] && bash /etc/init.d/dnsmasq restart
 [ -e /etc/init.d/ocserv ] && bash /etc/init.d/ocserv restart
+[ -e /etc/init.d/serverSpeeder ] && bash /etc/init.d/serverSpeeder restart
 rm -rf /tmp/*.tmp
 }
 
